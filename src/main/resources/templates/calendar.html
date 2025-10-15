@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Huting Calendar</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1 th:text="${year} + '/' + ${month}"></h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th style="color: red;">Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th style="color: blue;">Sat</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr th:each="week : ${#numbers.sequence(1, 6)}">
+                <td th:each="dayOfWeek : ${#numbers.sequence(0, 6)}"
+                    th:with="cellindex=${(week - 1) * 7 + dayOfWeek},
+                             dateNum=${cellindex - firstDayOfWeek + 1}">
+
+                    <div th:if="${cellindex < firstDayOfWeek or dateNum > daysInMonth}">
+                        &nbsp;
+                    </div>
+
+                    <div th:if="${cellindex >= firstDayOfWeek and dateNum <= daysInMonth}">
+                        <span th:text="${dateNum}"></span>
+                    </div>
+
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</body>
+</html>

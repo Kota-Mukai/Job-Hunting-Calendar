@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
-public class CalenderController {
+public class CalendarController {
 
     @GetMapping
-    public String showCalender(
+    public String showCalendar(
 
             // Refer to the year and month set in the request parameters in the URI and display the calendar for that year and month
             @RequestParam(value = "year", required = false) Integer year,
@@ -45,7 +45,7 @@ public class CalenderController {
         model.addAttribute("firstDayOfWeek", firstDayOfWeek);
         model.addAttribute("daysInMonth", daysInMonth);
 
-        return "calender";
+        return "calendar";
     }
 
 }
