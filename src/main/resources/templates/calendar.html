@@ -7,6 +7,10 @@
 </head>
 <body>
     <h1 th:text="${year} + '/' + ${month}"></h1>
+    <div>
+        <a th:href="@{/(year=${prevMonthYear}, month=${prevMonth})}">← 前の月</a>
+        <a th:href="@{/(year=${nextMonthYear}, month=${nextMonth})}">次の月 →</a>
+    </div>
 
     <table class="calendar" border="1">
         <thead>
@@ -40,6 +44,8 @@
 
         </tbody>
     </table>
+    <br>
+    <a th:href="@{/}">今日に戻る</a>
 
 </body>
 </html>
