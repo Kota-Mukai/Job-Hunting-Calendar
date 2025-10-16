@@ -21,31 +21,39 @@ public class CalendarController {
             Model model) {
 
         /* If no values are set in the request parameters, get the current date and return the corresponding year and month
-        (Example: when accessing the page for the first time) */
-        LocalDate today = LocalDate.now();
-        int currentYear = (year != null) ? year : today.getYear();
+           (Example: when accessing the page for the first time) */
+        LocalDate today  = LocalDate.now();
+        int currentYear  = (year != null) ? year : today.getYear();
         int currentMonth = (month != null) ? month : today.getMonthValue();
 
-        // Get the data for the first day of the specified year and month
-        LocalDate firstDay = LocalDate.of(currentYear, currentMonth, 1);
+        // Get the date for the first day of the specified year and month
+        LocalDate firstDay  = LocalDate.of(currentYear, currentMonth, 1);
+        // Get the data for the previous and next months of the specified year and month
+        LocalDate prevMonth = firstDay.minusMonths(1);
+        LocalDate nextMonth = firstDay.plusMonths(1);
 
         // Get the day of the week for the first day of the specified month
         int firstDayOfWeek = firstDay.getDayOfWeek().getValue();
         /* When displaying the calendar, we want each week to start with Sunday.
-        If we use getDayOfWeek and then getValue, Sunday corresponds to 7, which results in a calendar starting with Monday.
-        (Example: 1 2 3 4 5 6 7 → Mon Tue Wed Thu Fri Sat Sun)
-        By converting Sunday’s value to 0, we can display a calendar starting with Sunday.
-        (Example: 0 1 2 3 4 5 6 → Sun Mon Tue Wed Thu Fri Sat) */
+           If we use getDayOfWeek and then getValue, Sunday corresponds to 7, which results in a calendar starting with Monday.
+           (Example: 1 2 3 4 5 6 7 → Mon Tue Wed Thu Fri Sat Sun)
+           By converting Sunday’s value to 0, we can display a calendar starting with Sunday.
+           (Example: 0 1 2 3 4 5 6 → Sun Mon Tue Wed Thu Fri Sat) */
         firstDayOfWeek = (firstDayOfWeek == 7) ? 0 : firstDayOfWeek;
 
+        // Calculate the number of days in the displayed month
         int daysInMonth = firstDay.lengthOfMonth();
 
+        // Pass the data to the corresponding section in the HTML
         model.addAttribute("year", currentYear);
         model.addAttribute("month", currentMonth);
         model.addAttribute("firstDayOfWeek", firstDayOfWeek);
         model.addAttribute("daysInMonth", daysInMonth);
-
+        model.addAttribute("prevMonthYear", prevMonth.getYear());
+        model.addAttribute("prevMonth", prevMonth.getMonthValue());
+        model.addAttribute("nextMonthYear", nextMonth.getYear());
+        model.addAttribute("nextMonth", nextMonth.getMonthValue());
+        
         return "calendar";
     }
-
 }
