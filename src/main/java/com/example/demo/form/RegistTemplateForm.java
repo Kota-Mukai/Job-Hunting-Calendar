@@ -1,5 +1,8 @@
 package com.example.demo.form;
 
+import java.util.List;
+
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,5 +18,8 @@ public class RegistTemplateForm {
 
     @Size(min = 1, max = 250, message = "登録するテンプレートの説明を1文字以上250文字以下で入力してください")
     private String description;    
+
+    @Valid
+    private List<CompanyForm> companyList; 
 
 }
