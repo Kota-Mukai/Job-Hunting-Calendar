@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Huting Calendar -新規テンプレート登録</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>新規テンプレート登録</h1>
+    <form th:action="@{/regist-new-template}" method="POST"
+            th:object="${registTemplateForm}">
+    【テンプレート名】<br>
+    <input type="text" th:field="*{templateName}"><br>
+    <div class="error-msg" th:if="${#fields.hasErrors('templateName')}" th:errors="*{templateName}" ></div>
+    【テンプレート説明文】<br>
+    <textarea th:field="*{description}" rows="10" cols="25"></textarea><br>
+    <div class="error-msg" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" ></div>
+    <table>
+        <tr>
+            <th></th>
+            <th>企業名</th>
+            <th>エントリー締切日</th>
+        </tr>
+        <tr th:each="company, iterStat : *{companyList}">
+            <td>企業[[${iterStat.count}]]</td>
+            <td>
+                <input type="text" th:field="*{companyList[__${iterStat.index}__].companyName}" />
+                <div th:if="${#fields.hasErrors('companyList[__${iterStat.index}__].companyName')}" th:errors="*{companyList[__${iterStat.index}__].companyName}"></div>
+            </td>
+            <td>
+                <input type="datetime-local" th:field="*{companyList[__${iterStat.index}__].entryDeadLine}" />
+                <div th:if="${#fields.hasErrors('companyList[__${iterStat.index}__].entryDeadLine')}" th:errors="*{companyList[__${iterStat.index}__].entryDeadLine}"></div>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="登録">
+    </form>
+</body>
+</html>
