@@ -10,10 +10,10 @@
     <form th:action="@{/regist-new-template}" method="POST"
             th:object="${registTemplateForm}">
     【テンプレート名】<br>
-    <input type="text" th:field="*{templeteName}"><br>
+    <input type="text" th:field="*{templateName}"><br>
     <div class="error-msg" th:if="${#fields.hasErrors('templateName')}" th:errors="*{templateName}" ></div>
     【テンプレート説明文】<br>
-    <textarea th:field="*{description}" rows="10" cols="25"><br>
+    <textarea th:field="*{description}" rows="10" cols="25"></textarea><br>
     <div class="error-msg" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" ></div>
     <table>
         <tr>
