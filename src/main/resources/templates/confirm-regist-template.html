@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>新規登録内容確認</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>新規登録内容確認</h1>
+    <div th:object="${registTemplateForm}">
+        【テンプレート名】
+        <p th:text="*{templateName}"></p>
+        【テンプレート説明文】
+        <p th:text="*{description}"></p>
+        <table>
+        <tr>
+            <th></th>
+            <th>企業名</th>
+            <th>エントリー締切日</th>
+        </tr>
+        <tr th:each="company, iterStat : *{companyList}">
+            <td>企業[[${iterStat.count}]]</td>
+            <td>
+                <p th:text="${company.companyName}"></p>
+            </td>
+            <td>
+                <p th:text="${#temporals.format(company.entryDeadLine, 'yyyy/MM/dd HH:mm')}"></p>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <form th:action="@{/confirm-regist-template}" method="POST"
+            th:object="${registTemplateForm}">
+        <input type="hidden" th:field="*{templateName}">
+        <input type="hidden" th:field="*{description}">
+
+        <div th:each="company, iterStat : *{companyList}">
+            <input type="hidden" th:field="*{companyList[__${iterStat.index}__].companyName}">
+            <input type="hidden" th:field="*{companyList[__${iterStat.index}__].entryDeadLine}">
+        </div>
+
+        <input type="submit" value="登録">
+    </form>
+   
+</body>
+</html>
