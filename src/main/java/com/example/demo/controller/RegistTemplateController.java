@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.form.CompanyForm;
 import com.example.demo.form.RegistTemplateForm;
@@ -34,7 +35,7 @@ public class RegistTemplateController {
     }
 
     @PostMapping("regist-new-template")
-    public String RegistTemplate(
+    public String registTemplate(
             @Validated @ModelAttribute RegistTemplateForm form,
             BindingResult result){
         
@@ -43,6 +44,22 @@ public class RegistTemplateController {
         }
 
         return "confirm-regist-template";
+
+    }
+
+    @PostMapping("confirm-regist-template")
+    public String confirmRegistTemplate(
+            @Validated @ModelAttribute RegistTemplateForm form,
+            BindingResult result, 
+            RedirectAttributes redirectAttributes){
+
+        if(result.hasErrors()){
+            return "regist-new-template";
+        }
+
+        redirectAttributes.addFlashAttribute("msg", "新規テンプレート登録完了");
+
+        return "redirect:/complete";
 
     }
 
