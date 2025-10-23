@@ -42,6 +42,19 @@
 
         <input type="submit" value="登録">
     </form>
+
+    <form th:action="@{/regist-new-template-ret}" method="POST"
+            th:object="${registTemplateForm}">
+        <input type="hidden" th:field="*{templateName}">
+        <input type="hidden" th:field="*{description}">
+
+        <div th:each="company, iterStat : *{companyList}">
+            <input type="hidden" th:field="*{companyList[__${iterStat.index}__].companyName}">
+            <input type="hidden" th:field="*{companyList[__${iterStat.index}__].entryDeadLine}">
+        </div>
+
+        <input type="submit" value="戻る">
+    </form>
    
 </body>
 </html>

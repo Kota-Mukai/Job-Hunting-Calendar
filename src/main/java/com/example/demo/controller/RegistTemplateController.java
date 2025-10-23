@@ -47,6 +47,14 @@ public class RegistTemplateController {
 
     }
 
+    @PostMapping("regist-new-template-ret")
+    public String registTemplateRet(    
+            @ModelAttribute RegistTemplateForm form){
+        
+        return "regist-new-template";
+        
+    }
+
     @PostMapping("confirm-regist-template")
     public String confirmRegistTemplate(
             @Validated @ModelAttribute RegistTemplateForm form,

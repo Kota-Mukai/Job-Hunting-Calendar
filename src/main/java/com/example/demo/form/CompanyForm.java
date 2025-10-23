@@ -2,6 +2,8 @@ package com.example.demo.form;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ public class CompanyForm {
     private String companyName;
 
     @NotNull(message = "エントリー締切日を入力してください")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime entryDeadLine;
 
 
