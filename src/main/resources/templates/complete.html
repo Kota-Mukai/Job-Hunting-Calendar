@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${msg}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1 th:text="${msg ?: '処理は既に完了しています。'}"></h1>
+    
+    <a th:href="@{/regist-new-template}">続けてテンプレートを登録する</a><br>
+    <a th:href="@{/}">カレンダーを見る</a>
+   
+</body>
+</html>
