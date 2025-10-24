@@ -67,6 +67,16 @@ public class RegistTemplateController {
 
         redirectAttributes.addFlashAttribute("msg", "新規テンプレート登録完了");
 
+        System.out.println(form.getTemplateName());
+        System.out.println(form.getDescription());
+
+        for (int i=0; i<form.getCompanyList().size(); i++){
+            CompanyForm company = form.getCompanyList().get(i);
+
+            System.out.println(company.getCompanyName());
+            System.out.println(company.getEntryDeadLine());
+        }
+
         return "redirect:/complete";
 
     }
